@@ -2,11 +2,16 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function Home() {
-  return <div>Home</div>
+  return (
+    <div>
+      <h1>Home</h1>
+      <p>This is the home page</p>
+    </div>
+  )
 }
 
 function Page1() {
-  return <div>Page1</div>
+  return <h1>Page1</h1>
 }
 
 function Route({ path, component: Component }) {
@@ -18,6 +23,7 @@ function Route({ path, component: Component }) {
     }
 
     window.addEventListener('client-side-navigate', handleClientSideNavigate);
+    window.addEventListener('popstate', handleClientSideNavigate);
   }, []);
 
   return curPath === path ? <Component /> : null;

@@ -1,4 +1,4 @@
-import { Route, Link } from "./lib/react-router-dom";
+import { Route, Link, BrowserRouter, Routes } from "./lib/react-router-dom";
 import "./App.css";
 
 function Home() {
@@ -10,19 +10,40 @@ function Home() {
   );
 }
 
-function Page1() {
-  return <h1>Page1</h1>;
+function ProductPage() {
+  return (
+    <div>
+      <h1>Product</h1>
+      <p>This is the product page</p>
+    </div>
+  );
+}
+
+function ProductDetailPage() {
+  return (
+    <div>
+      <h1>Product Detail</h1>
+      <p>This is the product detail page</p>
+    </div>
+  );
 }
 
 function App() {
   return (
-    <>
-      <Link to="/">Home</Link>
-      {` | `}
-      <Link to="/page-1">Page1</Link>
-      <Route path="/" component={Home} />
-      <Route path="/page-1" component={Page1} />
-    </>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        {` | `}
+        <Link to="/product">Product</Link>
+        {` | `}
+        <Link to="/product/123">Product Detail</Link>
+      </nav>
+      <Routes>
+        <Route path="/product/123" component={ProductDetailPage} />
+        <Route path="/product" component={ProductPage} />
+        <Route path="/" component={Home} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

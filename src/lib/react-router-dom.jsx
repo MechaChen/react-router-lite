@@ -1,6 +1,14 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  createContext,
+  Children,
+} from "react";
 
-export function Route({ path, component: Component }) {
+const RouterContext = createContext();
+
+export function BrowserRouter({ children }) {
   const [curPath, setCurPath] = useState(window.location.pathname);
 
   useEffect(() => {
@@ -12,7 +20,28 @@ export function Route({ path, component: Component }) {
     window.addEventListener("popstate", updatePath);
   }, []);
 
-  return path === curPath && <Component />;
+  return <RouterContext value={{ curPath }}>{children}</RouterContext>;
+}
+
+export function Routes({ children }) {
+  const { curPath } = useContext(RouterContext);
+
+  let childToRender = null;
+  Children.map(children, (child) => {
+    if (childToRender) return;
+
+    const { path, component: Component } = child.props;
+    if (curPath.startsWith(path)) {
+      console.log({ curPath, path });
+      childToRender = <Component />;
+    }
+  });
+
+  return childToRender;
+}
+
+export function Route({ path, component: Component }) {
+  return { path, Component };
 }
 
 export function Link({ to, children }) {

@@ -1,4 +1,4 @@
-import { Route, Link, BrowserRouter, Routes } from "./lib/react-router-dom";
+import { Route, Link, HashRouter, Routes } from "./lib/react-router-dom";
 import "./App.css";
 
 function Home() {
@@ -30,7 +30,7 @@ function ProductDetailPage() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <nav>
         <Link to="/">Home</Link>
         {` | `}
@@ -43,7 +43,7 @@ function App() {
         <Route path="/product" component={ProductPage} />
         <Route path="/" component={Home} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
